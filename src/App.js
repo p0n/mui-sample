@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import NavBar from './NavBar';
+import Main from './Main';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 class App extends Component {
   constructor() {
@@ -16,12 +20,13 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
+      <MuiThemeProvider>
         <NavBar
           onToggle={() => this.handleToggle()}
           open={this.state.open}
         />
-      </div>
+        <Main />
+      </MuiThemeProvider>
     );
   }
 }
