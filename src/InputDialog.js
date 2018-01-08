@@ -16,11 +16,6 @@ const styles = {
 };
 
 export default class DialogExampleDialogDatePicker extends React.Component {
-  constructor(props) {
-    super(props);
-    this.submit = this.submit.bind(this);
-  }
-
   submit(e) {
     e.preventDefault();
     this.props.onAddBull({
@@ -43,7 +38,7 @@ export default class DialogExampleDialogDatePicker extends React.Component {
         label="Add"
         primary={true}
         type="submit"
-        onClick={this.submit}
+        onClick={e => this.submit(e)}
       />,
     ];
 

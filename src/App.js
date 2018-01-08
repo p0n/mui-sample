@@ -29,16 +29,19 @@ export default class App extends Component {
       ]
     }
   }
+
   handleToggle() {
     this.setState({
       drawerIsOpen: !this.state.drawerIsOpen
     })
   }
+
   handleToggleDialog() {
     this.setState({
       dialogIsOpen: !this.state.dialogIsOpen
     })
   }
+
   handleAddBull(bull) {
     if (!bull) {
       return;
@@ -51,6 +54,7 @@ export default class App extends Component {
     }
     this.handleToggleDialog();
   }
+  
   render() {
     return (
       <div>
