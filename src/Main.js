@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import InputDialog from './InputDialog';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
@@ -10,8 +11,6 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const styles = {
   root: {
@@ -38,12 +37,12 @@ const GridListSample = (props) => (
     <GridList style={styles.gridList} cols={2.2}>
       {props.bulls.map((bull) => (
         <GridTile
-          key={bull.img}
+          key={bull.name}
           title={bull.name}
           subtitle={<span>photo by <b>{bull.photoBy}</b></span>}
           actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
         >
-          <img src={bull.img} />
+          <img src={bull.img} alt={bull.name}/>
         </GridTile>
       ))}
     </GridList>
@@ -61,7 +60,7 @@ const TableSample = (props) => (
     </TableHeader>
     <TableBody>
       {props.bulls.map((bull, index) => (
-        <TableRow>
+        <TableRow key={bull.name}>
           <TableRowColumn>{index + 1}</TableRowColumn>
           <TableRowColumn>{bull.name}</TableRowColumn>
           <TableRowColumn>{bull.photoBy}</TableRowColumn>
@@ -71,28 +70,18 @@ const TableSample = (props) => (
   </Table>
 );
 
-const FloatingActionButtonSample = () => (
-  <div>
-    <FloatingActionButton style={styles.buttonStyle}>
-      <ContentAdd />
-    </FloatingActionButton>
-  </div>
-);
-
-class Main extends React.Component {
-  constructor(props) {
-    super(props);
-  };
-
+export default class Main extends React.Component {
   render() {
     return (
       <div>
         <GridListSample bulls={this.props.bulls}/>
         <TableSample bulls={this.props.bulls}/>
-        <FloatingActionButtonSample />
+        <InputDialog
+          dialogIsOpen={this.props.dialogIsOpen}
+          onToggleDialog={this.props.onToggleDialog}
+          onAddBull={this.props.onAddBull}
+        />
       </div>
     );
   }
 }
-
-export default Main;

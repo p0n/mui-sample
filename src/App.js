@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import NavBar from './NavBar';
 import Main from './Main';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-class App extends Component {
+export default class App extends Component {
   constructor() {
     super()
     this.state = {
-      open: false,
+      drawerIsOpen: false,
+      dialogIsOpen: false,
       bulls: [
         {
           img: 'https://cdn.pixabay.com/photo/2016/10/26/18/15/bulldog-1772130_1280.jpg',
@@ -31,21 +31,40 @@ class App extends Component {
   }
   handleToggle() {
     this.setState({
-      open: !this.state.open
+      drawerIsOpen: !this.state.drawerIsOpen
     })
-    console.log(this.state);
+  }
+  handleToggleDialog() {
+    this.setState({
+      dialogIsOpen: !this.state.dialogIsOpen
+    })
+  }
+  handleAddBull(bull) {
+    if (!bull) {
+      return;
+    } else {
+      this.state.bulls.push({
+        name: bull.name,
+        img: bull.img,
+        photoBy: bull.photoBy,
+      });
+    }
+    this.handleToggleDialog();
   }
   render() {
     return (
-      <MuiThemeProvider>
+      <div>
         <NavBar
           onToggle={() => this.handleToggle()}
-          open={this.state.open}
+          drawerIsOpen={this.state.drawerIsOpen}
         />
-        <Main bulls={this.state.bulls} />
-      </MuiThemeProvider>
+        <Main
+          onAddBull={(bull) => this.handleAddBull(bull)}
+          onToggleDialog={() => this.handleToggleDialog()}
+          dialogIsOpen={this.state.dialogIsOpen}
+          bulls={this.state.bulls}
+         />
+      </div>
     );
   }
 }
-
-export default App;

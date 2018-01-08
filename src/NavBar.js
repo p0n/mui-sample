@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { AppBar, MenuItem, Drawer } from 'material-ui';
 
 const NavBar = (props) => (
@@ -6,7 +6,7 @@ const NavBar = (props) => (
     <Drawer
       docked={false}
       width={200}
-      open={props.open}
+      open={props.drawerIsOpen}
       onRequestChange={() => props.onToggle()}
     >
       <MenuItem>French Bulls</MenuItem>
