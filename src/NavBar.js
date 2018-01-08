@@ -9,14 +9,12 @@ const NavBar = (props) => (
       open={props.open}
       onRequestChange={() => props.onToggle()}
     >
-      <MenuItem>React</MenuItem>
-      <MenuItem>Redux</MenuItem>
-      <MenuItem>React Router</MenuItem>
-      <MenuItem>Material UI</MenuItem>
-      <MenuItem>Electron</MenuItem>
+      <MenuItem>French Bulls</MenuItem>
+      <MenuItem>Pitbulls</MenuItem>
+      <MenuItem>Pugs</MenuItem>
     </Drawer>
     <AppBar
-      title="Material-UI"
+      title="Bulls"
       onLeftIconButtonClick={() => props.onToggle()}
     />
   </div>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
-import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import {
   Table,
@@ -11,6 +10,8 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const styles = {
   root: {
@@ -26,77 +27,72 @@ const styles = {
   titleStyle: {
     color: 'rgb(0, 188, 212)',
   },
+  buttonStyle: {
+    float: 'right',
+    marginRight: 20,
+  },
 };
 
-const tilesData = [
-  {
-    img: 'https://cdn.pixabay.com/photo/2016/10/26/18/15/bulldog-1772130_1280.jpg',
-    title: 'Bull #1',
-    author: 'pixabay',
-  },
-  {
-    img: 'https://cdn.pixabay.com/photo/2016/06/27/14/35/french-bulldog-1482630_1280.jpg',
-    title: 'Bull #2',
-    author: 'pixabay',
-  },
-  {
-    img: 'https://cdn.pixabay.com/photo/2016/02/26/16/32/dog-1224267_1280.jpg',
-    title: 'Bull #3',
-    author: 'pixabay',
-  },
-];
-
-const GridListSample = () => (
+const GridListSample = (props) => (
   <div style={styles.root}>
     <GridList style={styles.gridList} cols={2.2}>
-      {tilesData.map((tile) => (
+      {props.bulls.map((bull) => (
         <GridTile
-          key={tile.img}
-          title={tile.title}
-          subtitle={<span>by <b>{tile.author}</b></span>}
+          key={bull.img}
+          title={bull.name}
+          subtitle={<span>photo by <b>{bull.photoBy}</b></span>}
           actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
         >
-          <img src={tile.img} />
+          <img src={bull.img} />
         </GridTile>
       ))}
     </GridList>
   </div>
 );
 
-const TableSample = () => (
+const TableSample = (props) => (
   <Table>
     <TableHeader>
       <TableRow>
-        <TableHeaderColumn>ID</TableHeaderColumn>
+        <TableHeaderColumn>No.</TableHeaderColumn>
         <TableHeaderColumn>Name</TableHeaderColumn>
-        <TableHeaderColumn>Author</TableHeaderColumn>
+        <TableHeaderColumn>Photo by</TableHeaderColumn>
       </TableRow>
     </TableHeader>
     <TableBody>
-      <TableRow>
-        <TableRowColumn>1</TableRowColumn>
-        <TableRowColumn>Bull #1</TableRowColumn>
-        <TableRowColumn>pixabay</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>2</TableRowColumn>
-        <TableRowColumn>Bull #2</TableRowColumn>
-        <TableRowColumn>pixabay</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>3</TableRowColumn>
-        <TableRowColumn>Bull #3</TableRowColumn>
-        <TableRowColumn>pixabay</TableRowColumn>
-      </TableRow>
+      {props.bulls.map((bull, index) => (
+        <TableRow>
+          <TableRowColumn>{index + 1}</TableRowColumn>
+          <TableRowColumn>{bull.name}</TableRowColumn>
+          <TableRowColumn>{bull.photoBy}</TableRowColumn>
+        </TableRow>
+      ))}
     </TableBody>
   </Table>
 );
 
-const Main = () => (
+const FloatingActionButtonSample = () => (
   <div>
-    <GridListSample />
-    <Subheader>TableSample</Subheader>
-    <TableSample />
+    <FloatingActionButton style={styles.buttonStyle}>
+      <ContentAdd />
+    </FloatingActionButton>
   </div>
 );
+
+class Main extends React.Component {
+  constructor(props) {
+    super(props);
+  };
+
+  render() {
+    return (
+      <div>
+        <GridListSample bulls={this.props.bulls}/>
+        <TableSample bulls={this.props.bulls}/>
+        <FloatingActionButtonSample />
+      </div>
+    );
+  }
+}
+
 export default Main;
